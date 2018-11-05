@@ -119,20 +119,21 @@ That is, regardless of where in the line point is at the time."
   '(absolute abstract assembler automated cdecl default dispid dynamic
     export external far forward index inline message name near nodefault
     overload override pascal private protected public published read readonly
-    register reintroduce resident resourcestring safecall stdcall stored
+    register reintroduce resident resourcestring safecall stdcall stored strict
     virtual write writeonly)
   "OPascal4 directives.")
 
 (defconst opascal-keywords
   (append
    '(;; Keywords.
-     and array as asm at begin case class const constructor contains
+     and array as asm at begin case class const constructor contains continue
      destructor dispinterface div do downto else end except exports
-     file finalization finally for function goto if implementation implements
-     in inherited initialization interface is label library mod nil not
+     file finalization finally for function goto helper
+     if implementation implements in inherited initialization interface is
+     label library mod nil not
      of object on or out package packed procedure program property
-     raise record repeat requires result self set shl shr then threadvar
-     to try type unit uses until var while with xor
+     raise record reference repeat requires result self set shl shr string
+     then threadvar to try type unit uses until var while with xor
 
      ;; These routines should be keywords, if Borland had the balls.
      break exit)
@@ -176,7 +177,7 @@ are followed by an expression.")
   '(plus minus equals not-equals times divides div mod and or xor)
   "OPascal binary operations.")
 
-(defconst opascal-visibilities '(public private protected published automated)
+(defconst opascal-visibilities '(public private protected published strict automated)
   "Class visibilities.")
 
 (defconst opascal-block-statements
