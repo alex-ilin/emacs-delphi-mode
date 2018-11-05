@@ -99,6 +99,15 @@ else                            else
 end;                            end;"
   :type 'integer)
 
+(defcustom opascal-vertical-paren-align nil ; t
+  "If true then closing parenteses and brackets are indented to the level of the open ones:
+// if false         vs       // if true
+procedure Sample(            procedure Sample(
+  par1: Integer;               par1: Integer;
+  par2: Boolean                par2: Boolean
+  );                                         );"
+  :type 'boolean)
+
 (define-obsolete-variable-alias 'delphi-verbose 'opascal-verbose "24.4")
 (defcustom opascal-verbose t ; nil
   "If true then OPascal token processing progress is reported to the user."
@@ -1306,8 +1315,11 @@ routine.")
            (token-kind (opascal-token-kind token))
            (indent
             (cond ((eq 'close-group token-kind)
-                   ;; Indent to the matching start ( or [.
-                   (opascal-indent-of (opascal-group-start token)))
+                   (if opascal-vertical-paren-align
+                     ;; Indent to the matching start ( or [.
+                     (opascal-indent-of (opascal-group-start token))
+                     ;; Indent ) and ] to the current section level.
+                     (opascal-section-indent-of token)))
 
                   ((opascal-is token-kind opascal-unit-statements) 0)
 
